@@ -3,62 +3,507 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple GitHub Website</title>
+    <title>KrishiSahay (कृshiSahaय) - Team Vertex</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f2922',
+                            green: '#1a4731',
+                            light: '#e8f3ee',
+                            accent: '#facc15', // Harvest yellow
+                            orange: '#d97706'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Basic CSS to make it look like a normal, clean website */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292e;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .container {
-            background-color: #ffffff;
-            padding: 2rem 3rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-        }
-        h1 {
-            color: #0366d6; /* GitHub Blue */
-            margin-bottom: 0.5rem;
-        }
-        p {
-            line-height: 1.6;
-            color: #586069;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 10px 20px;
-            background-color: #2ea44f; /* GitHub Green */
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .btn:hover {
-            background-color: #2c974b;
-        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #1a4731; border-radius: 4px; }
     </style>
 </head>
-<body>
+<body class="flex flex-col h-screen overflow-hidden text-slate-800">
 
-    <div class="container">
-        <h1>Hello, GitHub!</h1>
-        <p>This is a simple, clean website hosted on <strong>GitHub Pages</strong>.</p>
-        <p>You can edit this <code>index.html</code> file to add your own text, images, and links.</p>
-        
-        <a href="https://docs.github.com/en/pages" class="btn" target="_blank">GitHub Pages Docs</a>
+    <!-- Top Navigation -->
+    <header class="bg-brand-dark text-white shadow-md z-10 flex-shrink-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-brand-light text-brand-green rounded-full flex items-center justify-center font-bold text-xl">
+                    <i data-lucide="leaf"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">कृshiSahaय <span class="text-sm font-normal text-brand-accent ml-2 hidden sm:inline">| Team Vertex</span></h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-medium text-brand-accent flex items-center gap-2">
+                    <i data-lucide="sprout" class="w-4 h-4"></i>
+                    Demo Harvest: Tomato (4 Quintals)
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <nav class="w-20 md:w-64 bg-white border-r border-slate-200 flex flex-col justify-between flex-shrink-0 overflow-y-auto transition-all duration-300">
+            <div class="p-4 space-y-2">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-brand-green bg-brand-light transition-colors">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span class="hidden md:block">Dashboard</span>
+                </button>
+                <button onclick="switchTab('calculator')" id="nav-calculator" class="nav-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                    <span class="hidden md:block">Mandi Compare</span>
+                </button>
+                <button onclick="switchTab('grade')" id="nav-grade" class="nav-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i data-lucide="award" class="w-5 h-5"></i>
+                    <span class="hidden md:block">Kisan Grade</span>
+                </button>
+                <button onclick="switchTab('pooling')" id="nav-pooling" class="nav-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i data-lucide="truck" class="w-5 h-5"></i>
+                    <span class="hidden md:block">Transport Pooling</span>
+                </button>
+                <button onclick="switchTab('spoilage')" id="nav-spoilage" class="nav-btn w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                    <span class="hidden md:block">Sell or Wait</span>
+                </button>
+            </div>
+            
+            <div class="p-4 hidden md:block">
+                <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                    <div class="flex items-center gap-2 text-amber-700 font-bold mb-1">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                        Action Required
+                    </div>
+                    <p class="text-xs text-amber-900 mb-2">Tomatoes harvested 12 hrs ago. Spoilage risk increasing.</p>
+                    <button onclick="switchTab('calculator')" class="w-full bg-amber-600 text-white text-xs font-semibold py-2 rounded-lg hover:bg-amber-700 transition">
+                        Compare Markets Now
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 p-4 sm:p-8">
+            <div class="max-w-5xl mx-auto">
+
+                <!-- 1. HOME TAB -->
+                <section id="view-home" class="view-section fade-in block">
+                    <div class="bg-brand-green rounded-3xl p-8 sm:p-12 text-white shadow-xl mb-8 relative overflow-hidden">
+                        <div class="relative z-10 max-w-2xl">
+                            <span class="inline-block py-1 px-3 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider mb-4 border border-white/30">HACK SHIFT MVP</span>
+                            <h2 class="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">Smarter Selling.<br>Lower Losses.<br><span class="text-brand-accent">Better Returns.</span></h2>
+                            <p class="text-brand-light text-lg mb-8 max-w-xl opacity-90">
+                                Market selection, crop grading, and shared transport for smallholder farmers. Built around one question: <strong>what will the farmer actually earn?</strong>
+                            </p>
+                            <button onclick="switchTab('calculator')" class="bg-white text-brand-green px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition shadow-lg flex items-center gap-2">
+                                Start Decision Pipeline <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <!-- Decorative background element -->
+                        <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                            <i data-lucide="sprout" style="width: 400px; height: 400px;"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">From Harvest to Profit Pipeline</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">1</div>
+                            <h4 class="font-bold text-slate-800">Harvest</h4>
+                            <p class="text-xs text-slate-500 mt-1">Crop, quantity, location</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-brand-green transition" onclick="switchTab('grade')">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-3">2</div>
+                            <h4 class="font-bold text-slate-800">Quality</h4>
+                            <p class="text-xs text-slate-500 mt-1">Preliminary grade & confidence</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-brand-green transition" onclick="switchTab('calculator')">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-3">3</div>
+                            <h4 class="font-bold text-slate-800">Market</h4>
+                            <p class="text-xs text-slate-500 mt-1">Compare nearby & distant</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm cursor-pointer hover:border-brand-green transition" onclick="switchTab('pooling')">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-3">4</div>
+                            <h4 class="font-bold text-slate-800">Transport</h4>
+                            <p class="text-xs text-slate-500 mt-1">Match farmers, split costs</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. NET PROFIT CALCULATOR TAB -->
+                <section id="view-calculator" class="view-section fade-in hidden">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-slate-800">Mandi Comparison: A Worked Example</h2>
+                        <p class="text-slate-500 mt-1">The best price is not always the best return. Showing 4 Quintals of Tomatoes.</p>
+                    </div>
+
+                    <!-- Core Calculation Bar -->
+                    <div class="bg-slate-800 text-white rounded-xl p-4 flex flex-wrap items-center gap-2 text-sm font-medium mb-8">
+                        <span class="bg-slate-700 px-3 py-1 rounded-lg">Net Return</span> = 
+                        <span class="text-emerald-400">Gross Revenue</span> - 
+                        <span class="text-rose-400">Transport Cost</span> - 
+                        <span class="text-amber-400">Handling/Spoilage</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Option 1 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col h-full hover:shadow-md transition">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500">1</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-800">Nearby Mandi</h3>
+                                    <p class="text-xs text-slate-500">Short distance, lower rate</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 flex-1">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-600">Expected sale revenue</span>
+                                    <span class="font-semibold">₹4,800</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
+                                    <span class="text-rose-500">Transport & costs</span>
+                                    <span class="font-semibold text-rose-500">- ₹200</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-200">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-sm font-bold text-slate-500 uppercase">Net Return</span>
+                                    <span class="text-2xl font-bold text-slate-800">₹4,600</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Option 2 -->
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col h-full hover:shadow-md transition">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500">2</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-800">Distant Mandi</h3>
+                                    <p class="text-xs text-slate-500">Higher rate, Own Truck</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 flex-1">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-600">Expected sale revenue</span>
+                                    <span class="font-semibold">₹7,200</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
+                                    <span class="text-rose-500">Transport & costs (₹2k+₹300)</span>
+                                    <span class="font-semibold text-rose-500">- ₹2,300</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-200">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-sm font-bold text-slate-500 uppercase">Net Return</span>
+                                    <span class="text-2xl font-bold text-slate-800">₹4,900</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Option 3 (Recommended) -->
+                        <div class="bg-brand-light rounded-2xl border-2 border-brand-green shadow-lg p-6 flex flex-col h-full relative transform hover:-translate-y-1 transition duration-300">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-brand-green text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide flex items-center gap-1 shadow-md">
+                                <i data-lucide="star" class="w-3 h-3 fill-current"></i> Best Net Return
+                            </div>
+                            <div class="flex items-center gap-3 mb-4 mt-2">
+                                <div class="w-8 h-8 rounded-full bg-brand-green flex items-center justify-center font-bold text-white">3</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-brand-dark">Distant Mandi</h3>
+                                    <p class="text-xs text-brand-green font-medium">Shared Truck Pooling</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3 flex-1">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-700">Expected sale revenue</span>
+                                    <span class="font-semibold">₹7,200</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm border-b border-brand-green/20 pb-3">
+                                    <span class="text-rose-600">Shared Transport (₹600+₹300)</span>
+                                    <span class="font-semibold text-rose-600">- ₹900</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-brand-green/20">
+                                <div class="flex justify-between items-end">
+                                    <span class="text-sm font-bold text-brand-green uppercase">Net Return</span>
+                                    <span class="text-3xl font-extrabold text-brand-dark">₹6,300</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. KISAN GRADE TAB -->
+                <section id="view-grade" class="view-section fade-in hidden">
+                    <div class="mb-6 flex justify-between items-end">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">Kisan Grade System</h2>
+                            <p class="text-slate-500 mt-1">Quality grades that buyers can trust, with photo-based preliminary estimation.</p>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-lg text-sm font-semibold border border-emerald-200">
+                            Batch ID: #KS-7492-TM
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <!-- Grade A -->
+                        <div class="bg-white border-t-4 border-emerald-500 rounded-xl p-5 shadow-sm">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-bold text-lg text-slate-800">Grade A <span class="text-sm font-normal text-slate-500 ml-1">Premium</span></h3>
+                                <span class="bg-emerald-50 text-emerald-700 px-2 py-1 rounded text-xs font-bold">150 kg</span>
+                            </div>
+                            <ul class="text-sm text-slate-600 space-y-2 mb-4">
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i> Uniform size, colour, maturity</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0"></i> Minimal visible defects</li>
+                            </ul>
+                            <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between text-sm font-semibold">
+                                <span>₹20 / kg</span>
+                                <span class="text-emerald-700">Total: ₹3,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Grade B -->
+                        <div class="bg-white border-t-4 border-amber-400 rounded-xl p-5 shadow-sm">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-bold text-lg text-slate-800">Grade B <span class="text-sm font-normal text-slate-500 ml-1">Standard</span></h3>
+                                <span class="bg-amber-50 text-amber-700 px-2 py-1 rounded text-xs font-bold">170 kg</span>
+                            </div>
+                            <ul class="text-sm text-slate-600 space-y-2 mb-4">
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500 shrink-0"></i> Mixed sizes, minor flaws</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500 shrink-0"></i> Sound and suitable for sale</li>
+                            </ul>
+                            <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between text-sm font-semibold">
+                                <span>₹15 / kg</span>
+                                <span class="text-amber-700">Total: ₹2,550</span>
+                            </div>
+                        </div>
+
+                        <!-- Grade C -->
+                        <div class="bg-white border-t-4 border-rose-400 rounded-xl p-5 shadow-sm">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-bold text-lg text-slate-800">Grade C <span class="text-sm font-normal text-slate-500 ml-1">Lower</span></h3>
+                                <span class="bg-rose-50 text-rose-700 px-2 py-1 rounded text-xs font-bold">80 kg</span>
+                            </div>
+                            <ul class="text-sm text-slate-600 space-y-2 mb-4">
+                                <li class="flex gap-2"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-500 shrink-0"></i> Cosmetic defects / irregular</li>
+                                <li class="flex gap-2"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-500 shrink-0"></i> Processing buyers (must be safe)</li>
+                            </ul>
+                            <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between text-sm font-semibold">
+                                <span>₹8 / kg</span>
+                                <span class="text-rose-700">Total: ₹640</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Revenue Summary Table -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+                            <h4 class="font-bold text-slate-800">Illustrative Grade-Wise Revenue (400 kg Total)</h4>
+                        </div>
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50 text-slate-500 text-sm">
+                                <tr>
+                                    <th class="px-6 py-3 font-semibold">Grade</th>
+                                    <th class="px-6 py-3 font-semibold">Quantity</th>
+                                    <th class="px-6 py-3 font-semibold">Price / kg</th>
+                                    <th class="px-6 py-3 font-semibold text-right">Gross Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="px-6 py-4 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-2"></span>Grade A</td>
+                                    <td class="px-6 py-4">150 kg</td>
+                                    <td class="px-6 py-4">₹20</td>
+                                    <td class="px-6 py-4 text-right font-semibold">₹3,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium"><span class="w-2 h-2 rounded-full bg-amber-400 inline-block mr-2"></span>Grade B</td>
+                                    <td class="px-6 py-4">170 kg</td>
+                                    <td class="px-6 py-4">₹15</td>
+                                    <td class="px-6 py-4 text-right font-semibold">₹2,550</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-medium"><span class="w-2 h-2 rounded-full bg-rose-400 inline-block mr-2"></span>Grade C</td>
+                                    <td class="px-6 py-4">80 kg</td>
+                                    <td class="px-6 py-4">₹8</td>
+                                    <td class="px-6 py-4 text-right font-semibold">₹640</td>
+                                </tr>
+                                <tr class="bg-brand-light">
+                                    <td class="px-6 py-4 font-bold text-brand-dark" colspan="3">Total Estimated Revenue</td>
+                                    <td class="px-6 py-4 text-right font-extrabold text-brand-green text-lg">₹6,190</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 4. TRANSPORT POOLING TAB -->
+                <section id="view-pooling" class="view-section fade-in hidden">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-slate-800">Transport Pooling</h2>
+                        <p class="text-slate-500 mt-1">Match with nearby farmers on compatible routes and split vehicle costs fairly.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Route: Village Cluster → Distant Mandi</h3>
+                                <p class="text-sm text-slate-500">Departure: Today, 8:00 PM • Truck Capacity: 10 Quintals</p>
+                            </div>
+                            <div class="bg-brand-light border border-brand-green/30 px-4 py-2 rounded-xl text-center">
+                                <span class="block text-xs font-bold text-brand-green uppercase tracking-wide">Total Fare</span>
+                                <span class="block text-xl font-extrabold text-brand-dark">₹2,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Mock Match UI -->
+                        <div class="relative mb-10">
+                            <!-- Route Line -->
+                            <div class="absolute left-6 top-0 bottom-0 w-1 bg-slate-200 rounded"></div>
+                            
+                            <div class="space-y-6">
+                                <!-- Farmer 1 (You) -->
+                                <div class="relative pl-16">
+                                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-4 border-white bg-brand-green shadow-sm"></div>
+                                    <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-emerald-600 font-bold text-lg border border-emerald-100 shadow-sm">You</div>
+                                            <div>
+                                                <h4 class="font-bold text-slate-800">4 Quintals (Tomatoes)</h4>
+                                                <p class="text-xs text-slate-500">Location: Point A</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="block text-xs font-bold text-emerald-700">Your Share</span>
+                                            <span class="block text-xl font-bold text-slate-800">₹600</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Farmer 2 (Match) -->
+                                <div class="relative pl-16">
+                                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-4 border-white bg-blue-500 shadow-sm"></div>
+                                    <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-blue-600 font-bold text-lg border border-slate-100 shadow-sm">RJ</div>
+                                            <div>
+                                                <h4 class="font-bold text-slate-800">Ramesh J. <span class="text-sm font-normal text-slate-500 ml-1">• 4.5 Quintals (Onions)</span></h4>
+                                                <p class="text-xs text-slate-500">Location: Point B (+ 2km on route)</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="block text-xs font-bold text-slate-500">Ramesh's Share</span>
+                                            <span class="block text-xl font-bold text-slate-800">₹1,400</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Destination -->
+                                <div class="relative pl-16">
+                                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs shadow-sm"><i data-lucide="map-pin" class="w-3 h-3"></i></div>
+                                    <div class="py-2 text-sm font-bold text-slate-600">
+                                        Destination: Distant Mandi
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end border-t border-slate-100 pt-6">
+                            <button onclick="switchTab('calculator')" class="bg-brand-green text-white px-6 py-3 rounded-xl font-bold hover:bg-brand-dark transition shadow-md flex items-center gap-2">
+                                Confirm & Book Pool <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. SPOILAGE / SELL OR WAIT TAB -->
+                <section id="view-spoilage" class="view-section fade-in hidden">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-slate-800">Spoilage Check: Sell or Wait</h2>
+                        <p class="text-slate-500 mt-1">Estimates urgency based on perishability and cold storage access.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center max-w-2xl mx-auto mb-8">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-amber-100 rounded-full mb-4">
+                            <i data-lucide="alert-triangle" class="w-10 h-10 text-amber-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">Medium Risk</h3>
+                        <p class="text-slate-600 mb-6 font-medium">Selling Urgency: High (Within 24 Hours)</p>
+                        
+                        <div class="bg-slate-50 rounded-xl p-4 text-left border border-slate-100 mb-6">
+                            <h4 class="font-bold text-slate-700 text-sm uppercase tracking-wide mb-3">Reasons for Assessment:</h4>
+                            <ul class="space-y-3">
+                                <li class="flex gap-3 text-sm text-slate-600"><i data-lucide="clock" class="w-5 h-5 text-amber-500"></i> Harvested recently (Tomatoes). Clock is ticking on shelf life.</li>
+                                <li class="flex gap-3 text-sm text-slate-600"><i data-lucide="thermometer" class="w-5 h-5 text-amber-500"></i> No cold storage selected. Ambient temp causes rapid degradation.</li>
+                                <li class="flex gap-3 text-sm text-slate-600"><i data-lucide="trending-down" class="w-5 h-5 text-rose-500"></i> Waiting risks downgrade (Grade A → Grade B) forcing lower prices.</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="switchTab('calculator')" class="bg-amber-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-amber-600 transition shadow-md w-full sm:w-auto">
+                            View Profit Calc to Sell Now
+                        </button>
+                    </div>
+                </section>
+
+            </div>
+        </main>
     </div>
 
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Tab Switcher Logic
+        function switchTab(tabId) {
+            // 1. Hide all views
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(view => {
+                view.classList.add('hidden');
+                view.classList.remove('block');
+            });
+
+            // 2. Show target view
+            const targetView = document.getElementById('view-' + tabId);
+                       if(targetView) {
+                targetView.classList.remove('hidden');
+                targetView.classList.add('block');
+            }
+
+            // 3. Reset Nav Button Styles
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => {
+                // Remove active classes
+                btn.classList.remove('bg-brand-light', 'text-brand-green');
+                // Add default classes back
+                btn.classList.add('text-slate-600', 'hover:bg-slate-50');
+            });
+
+            // 4. Set Active Nav Button Style
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-50');
+                activeBtn.classList.add('bg-brand-light', 'text-brand-green');
+            }
+        }
+    </script>
 </body>
 </html>
